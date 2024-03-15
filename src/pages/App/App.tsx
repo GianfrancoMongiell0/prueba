@@ -5,7 +5,7 @@ export default function App() {
         <>
             <NavBar></ NavBar>
 
-            <div className="texto">hola</div>
+            
         </>
     )
 }
