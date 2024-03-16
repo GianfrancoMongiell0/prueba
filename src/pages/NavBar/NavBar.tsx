@@ -1,23 +1,30 @@
 
 import styled from 'styled-components';
-import HamburerButton from '../../components/BurgerButton';
+import { useState } from 'react';
 import BurgerButton from '../../components/BurgerButton';
 
 export default function NavBar() {
+
+    const [active, setActive] = useState(false)
+    const handleClick = () => {
+        setActive(!active)
+    }
+
 
     return (
         <>
             <NavBarContainer>
                 <h2>Navbar <span>responsive</span></h2>
-                <div className='links active'>
+                <div className={`links ${active ? 'active' : ''}`}>
                     <a href="" >Sobre mi</a>
                     <a href="">Contacto</a>
                     <a href="">Portafolio</a>
                     <a href="">Conocimientos</a>
                 </div>
                 <div className="burguer">
-                    <BurgerButton />
+                    <BurgerButton active={active} handleClick={handleClick} />
                 </div>
+                <BgDiv className={`initial ${active ? 'active' : ''}`}></BgDiv>
             </NavBarContainer>
         </>
     );
@@ -36,13 +43,11 @@ h2{
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   a{
     color: white;
     text-decoration: none;
     margin-right: 1rem;
   }
-
   .links{
     position: absolute;
     top: -700px;
@@ -51,24 +56,23 @@ h2{
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    transition: all 1s;
+    transition: all .5s ease;
     a{
-        color: #000000;
-        font-size: 1.5rem;
-        display: block;   
+      color: white;
+      font-size: 2rem;
+      display: block;
     }
     @media(min-width: 768px){
-        position: initial;
-        margin: 0;
-        a{
-            font-size: 1rem;
-            color: white;
-            display: inline;
-        }
-        display: block;
+      position: initial;
+      margin: 0;
+      a{
+        font-size: 1rem;
+        color: white;
+        display: inline;
+      }
+      display: block;
     }
   }
-
   .links.active{
     width: 100%;
     display: block;
@@ -79,17 +83,34 @@ h2{
     left: 0;
     right: 0;
     text-align: center;
-    transition: all 1s;
     a{
-        font-size: 2rem;
-        margin-top: 1rem;
-        color: #000000;
+      font-size: 2rem;
+      margin-top: 1rem;
+      color: white;
     }
-    
   }
   .burguer{
     @media(min-width: 768px){
       display: none;
     }
   }
-    `;
+`
+
+const BgDiv = styled.div`
+  background-color: #222;
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transition: all .6s ease ;
+  
+  &.active{
+    border-radius: 0 0 80% 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`
